@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ボルダリング SG">
+    <title>シンガポール・ボルダリングガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .tabs {
+            display: flex;
+            background: white;
+            position: sticky;
+            top: 72px;
+            z-index: 99;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 16px;
+            background: white;
+            border: none;
+            color: #999;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            background: white;
+            transition: all 0.3s;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            background-image: none;
+        }
+
+        .gym-info-panel {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .gym-info-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-right: 6px;
+        }
+
+        .gym-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .grade-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 10px;
+        }
+
+        .grade-btn {
+            padding: 16px 12px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1em;
+            min-height: 56px;
+        }
+
+        .grade-btn:active {
+            transform: scale(0.95);
+        }
+
+        .grade-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .difficulty-info {
+            margin-top: 15px;
+            padding: 16px;
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
+            border-radius: 12px;
+            font-size: 0.9em;
+        }
+
+        .difficulty-info strong {
+            color: #f57c00;
+        }
+
+        .equivalents {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .equiv-badge {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .climb-card {
+            background: white;
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .climb-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .climb-grade {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .climb-date {
+            color: #999;
+            font-size: 0.85em;
+        }
+
+        .climb-gym {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .climb-status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #4caf50;
+            color: white;
+        }
+
+        .status-attempted {
+            background: #ff9800;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .grade-bar-container {
+            margin-bottom: 16px;
+        }
+
+        .grade-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .grade-bar {
+            height: 32px;
+            background: #f0f0f0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .grade-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95);
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧗 ボルダリング SG</h1>
+            <p>シンガポール完全ガイド</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('record')">記録</button>
+            <button class="tab" onclick="switchTab('history')">履歴</button>
+            <button class="tab" onclick="switchTab('stats')">統計</button>
+        </div>
+
+        <div class="content">
+            <!-- 記録タブ -->
+            <div id="record" class="tab-content active">
+                <div class="form-group">
+                    <label>ジムブランド</label>
+                    <select id="gymBrand">
+                        <option value="">選択してください</option>
+                        <option value="fitbloc">Fit Bloc</option>
+                        <option value="bff">BFF Climb</option>
+                        <option value="boulder+">Boulder+</option>
+                        <option value="bouldermovement">Boulder Movement</option>
+                        <option value="climbcentral">Climb Central</option>
+                        <option value="boulderplanet">Boulder Planet</option>
+                        <option value="kinetics">Kinetics Climbing</option>
+                        <option value="groundup">Ground Up Climbing</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="locationGroup" style="display: none;">
+                    <label>場所</label>
+                    <select id="gymLocation"></select>
+                    <div id="gymInfoPanel" class="gym-info-panel"></div>
+                </div>
+                
+                <div class="form-group" id="gradeSystemGroup" style="display: none;">
+                    <label>グレードシステム</label>
+                    <select id="gradeSystem" disabled>
+                        <option value="">自動選択</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="gradeGroup" style="display: none;">
+                    <label>グレード</label>
+                    <div class="grade-buttons" id="gradeButtons"></div>
+                    <div id="difficultyInfo" class="difficulty-info" style="display: none;">
+                        <div id="difficultyText"></div>
+                        <div class="equivalents" id="equivalents"></div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="statusGroup" style="display: none;">
+                    <label>ステータス</label>
+                    <select id="status">
+                        <option value="completed">✅ 完登</option>
+                        <option value="attempted">🔄 トライ中</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="notesGroup" style="display: none;">
+                    <label>メモ（任意）</label>
+                    <textarea id="notes" placeholder="課題の特徴、感想など..."></textarea>
+                </div>
+
+                <button class="btn" id="saveBtn" onclick="saveClimb()" style="display: none;">記録を保存</button>
+            </div>
+
+            <!-- 履歴タブ -->
+            <div id="history" class="tab-content">
+                <div class="section-title">登攀履歴</div>
+                <div id="climbsList"></div>
+            </div>
+
+            <!-- 統計タブ -->
+            <div id="stats" class="tab-content">
+                <div class="section-title">統計情報</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalClimbs">0</div>
+                        <div class="stat-label">総登攀数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completedClimbs">0</div>
+                        <div class="stat-label">完登数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completionRate">0%</div>
+                        <div class="stat-label">完登率</div>
+                    </div>
+                </div>
+
+                <div class="section-title">グレード別分布</div>
+                <div id="gradeDistribution"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ジムデータベース
+        const gymDatabase = {
+            fitbloc: {
+                name: 'Fit Bloc',
+                gradeSystem: 'fitbloc',
+                locations: {
+                    'Science Park': {
+                        name: 'Science Park',
+                        price: '$28',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.fitbloc.com/'
+                    }
+                }
+            },
+            bff: {
+                name: 'BFF Climb',
+                gradeSystem: 'bff',
+                locations: {
+                    'Bendemeer': {
+                        name: 'Bendemeer',
+                        price: '$27.25',
+                        peakHours: '週末・平日夜',
+                        booking: '予約推奨',
+                        url: 'https://www.bffclimb.com/'
+                    },
+                    'Tampines': {
+                        name: 'Tampines',
+                        price: '$27.25',
+                        peakHours: '週末・平日夜',
+                        booking: '予約推奨',
+                        url: 'https://www.bffclimb.com/'
+                    }
+                }
+            },
+            'boulder+': {
+                name: 'Boulder+',
+                gradeSystem: 'boulder+',
+                locations: {
+                    'Aperia': {
+                        name: 'Aperia',
+                        price: '$32',
+                        peakHours: '平日夜',
+                        booking: '予約不要',
+                        url: 'https://www.boulderplusclimbing.com/'
+                    },
+                    'Chevrons': {
+                        name: 'Chevrons',
+                        price: '$32',
+                        peakHours: '平日夜',
+                        booking: '予約不要',
+                        url: 'https://www.boulderplusclimbing.com/'
+                    }
+                }
+            },
+            bouldermovement: {
+                name: 'Boulder Movement',
+                gradeSystem: 'vgrade',
+                locations: {
+                    'Bugis': {
+                        name: 'Bugis+',
+                        price: '$35',
+                        peakHours: '平日夜・週末',
+                        booking: 'アプリ予約必須',
+                        url: 'https://bouldermovement.com/'
+                    },
+                    'Downtown': {
+                        name: 'Downtown',
+                        price: '$35',
+                        peakHours: '平日夜・週末',
+                        booking: 'アプリ予約必須',
+                        url: 'https://bouldermovement.com/'
+                    },
+                    'Rochor': {
+                        name: 'Rochor',
+                        price: '$35',
+                        peakHours: '平日夜・週末',
+                        booking: 'アプリ予約必須',
+                        url: 'https://bouldermovement.com/'
+                    },
+                    'Tai Seng': {
+                        name: 'Tai Seng',
+                        price: '$35',
+                        peakHours: '平日夜・週末',
+                        booking: 'アプリ予約必須',
+                        url: 'https://bouldermovement.com/'
+                    },
+                    'Suntec': {
+                        name: 'Suntec',
+                        price: '$35',
+                        peakHours: '平日夜・週末',
+                        booking: 'アプリ予約必須',
+                        url: 'https://bouldermovement.com/'
+                    }
+                }
+            },
+            climbcentral: {
+                name: 'Climb Central',
+                gradeSystem: 'japanese',
+                locations: {
+                    'Novena': {
+                        name: 'Novena',
+                        price: '$22-32',
+                        peakHours: '平日夜・週末',
+                        booking: '初回のみ予約推奨',
+                        url: 'https://www.climbcentral.sg/'
+                    },
+                    'Funan': {
+                        name: 'Funan',
+                        price: '$22-32',
+                        peakHours: '平日夜・週末',
+                        booking: '初回のみ予約推奨',
+                        url: 'https://www.climbcentral.sg/'
+                    },
+                    'Kallang': {
+                        name: 'Kallang',
+                        price: '$22-32',
+                        peakHours: '平日夜・週末',
+                        booking: '初回のみ予約推奨',
+                        url: 'https://www.climbcentral.sg/'
+                    },
+                    'i12 Katong': {
+                        name: 'i12 Katong',
+                        price: '$22-32',
+                        peakHours: '平日夜・週末',
+                        booking: '初回のみ予約推奨',
+                        url: 'https://www.climbcentral.sg/'
+                    },
+                    'SAFRA': {
+                        name: 'SAFRA',
+                        price: '$22-32',
+                        peakHours: '平日夜・週末',
+                        booking: '初回のみ予約推奨',
+                        url: 'https://www.climbcentral.sg/'
+                    }
+                }
+            },
+            boulderplanet: {
+                name: 'Boulder Planet',
+                gradeSystem: 'vgrade',
+                locations: {
+                    'Sembawang': {
+                        name: 'Sembawang',
+                        price: '$33',
+                        peakHours: '平日夜・週末',
+                        booking: '予約不要',
+                        url: 'https://www.boulderplanet.sg/'
+                    },
+                    'Tai Seng': {
+                        name: 'Tai Seng',
+                        price: '$33',
+                        peakHours: '平日夜・週末',
+                        booking: '予約不要',
+                        url: 'https://www.boulderplanet.sg/'
+                    }
+                }
+            },
+            kinetics: {
+                name: 'Kinetics Climbing',
+                gradeSystem: 'vgrade',
+                locations: {
+                    'Kinetics': {
+                        name: 'Kinetics Climbing',
+                        price: '$30',
+                        peakHours: '平日夜・週末',
+                        booking: '予約推奨',
+                        url: 'https://www.kineticsclimbing.com.sg/'
+                    }
+                }
+            },
+            groundup: {
+                name: 'Ground Up Climbing',
+                gradeSystem: 'vgrade',
+                locations: {
+                    'Ground Up': {
+                        name: 'Ground Up Climbing',
+                        price: '$28',
+                        peakHours: '平日夜・週末',
+                        booking: '予約不要',
+                        url: 'https://www.groundupclimbing.com/'
+                    }
+                }
+            },
+            other: {
+                name: 'その他',
+                gradeSystem: 'vgrade',
+                locations: {
+                    'Other': {
+                        name: 'その他のジム',
+                        price: '各ジムによる',
+                        peakHours: '各ジムによる',
+                        booking: '各ジムによる',
+                        url: ''
+                    }
+                }
+            }
+        };
+
+        // グレード対比表
+        const gradeMapping = {
+            beginner: {
+                fitbloc: ['25%'],
+                bff: ['6', '7', '8'],
+                'boulder+': ['水色', '青'],
+                japanese: ['5級', '4級'],
+                vgrade: ['V1', 'V2'],
+                difficulty: '基礎ムーブの習得段階'
+            },
+            intermediate: {
+                fitbloc: ['50%'],
+                bff: ['9', '10'],
+                'boulder+': ['青', '紫'],
+                japanese: ['4級', '3級'],
+                vgrade: ['V2', 'V3'],
+                difficulty: '今の君のメイン層'
+            },
+            advanced: {
+                fitbloc: ['75%'],
+                bff: ['11', '12'],
+                'boulder+': ['緑'],
+                japanese: ['2級', '1級'],
+                vgrade: ['V4', 'V5'],
+                difficulty: 'ここから急に強度が上がる'
+            },
+            expert: {
+                fitbloc: ['100%'],
+                bff: ['13', '14'],
+                'boulder+': ['ピンク'],
+                japanese: ['初段以上'],
+                vgrade: ['V6', 'V7', 'V8+'],
+                difficulty: '最難関。強靭な保持力が必要'
+            }
+        };
+
+        const gradeSystems = {
+            fitbloc: ['25%', '50%', '75%', '100%'],
+            bff: ['6', '7', '8', '9', '10', '11', '12', '13', '14'],
+            'boulder+': ['水色', '青', '紫', '緑', 'ピンク'],
+            japanese: ['5級', '4級', '3級', '2級', '1級', '初段以上'],
+            vgrade: ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8+']
+        };
+
+        let selectedGrade = null;
+        let selectedGradeSystem = null;
+        let selectedBrand = null;
+        let selectedLocation = null;
+        let climbs = [];
+
+        // ローカルストレージから読み込み
+        function loadClimbs() {
+            const saved = localStorage.getItem('sgBoulderingClimbs');
+            if (saved) {
+                try {
+                    climbs = JSON.parse(saved);
+                } catch (e) {
+                    climbs = [];
+                }
+            }
+            updateDisplay();
+        }
+
+        // ローカルストレージに保存
+        function saveToStorage() {
+            localStorage.setItem('sgBoulderingClimbs', JSON.stringify(climbs));
+        }
+
+        // タブ切り替え
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'history') {
+                displayClimbs();
+            } else if (tabName === 'stats') {
+                displayStats();
+            }
+        }
+
+        // ブランド選択時
+        document.getElementById('gymBrand').addEventListener('change', function() {
+            selectedBrand = this.value;
+            const locationGroup = document.getElementById('locationGroup');
+            const locationSelect = document.getElementById('gymLocation');
+            
+            if (!selectedBrand) {
+                locationGroup.style.display = 'none';
+                hideAllFormGroups();
+                return;
+            }
+
+            // 場所のオプションを設定
+            const brand = gymDatabase[selectedBrand];
+            locationSelect.innerHTML = '<option value="">選択してください</option>';
+            
+            for (const [key, location] of Object.entries(brand.locations)) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = location.name;
+                locationSelect.appendChild(option);
+            }
+            
+            locationGroup.style.display = 'block';
+            document.getElementById('gymInfoPanel').classList.remove('show');
+            hideFormGroupsAfterLocation();
+        });
+
+        // 場所選択時
+        document.getElementById('gymLocation').addEventListener('change', function() {
+            selectedLocation = this.value;
+            const infoPanel = document.getElementById('gymInfoPanel');
+            
+            if (!selectedLocation) {
+                infoPanel.classList.remove('show');
+                hideFormGroupsAfterLocation();
+                return;
+            }
+
+            // ジム情報表示
+            const brand = gymDatabase[selectedBrand];
+            const location = brand.locations[selectedLocation];
+            
+            infoPanel.innerHTML = `
+                <div class="info-row">
+                    <span class="info-icon">💰</span>
+                    <span class="info-label">料金:</span>
+                    <span>${location.price}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">⏰</span>
+                    <span class="info-label">混雑時間:</span>
+                    <span>${location.peakHours}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">📅</span>
+                    <span class="info-label">予約:</span>
+                    <span>${location.booking}</span>
+                </div>
+                ${location.url ? `<a href="${location.url}" target="_blank" class="gym-link">ジムのサイトを開く →</a>` : ''}
+            `;
+            infoPanel.classList.add('show');
+            
+            // グレードシステムを自動設定
+            selectedGradeSystem = brand.gradeSystem;
+            const gradeSystemSelect = document.getElementById('gradeSystem');
+            const systemNames = {
+                fitbloc: 'Fit Bloc (充電 %)',
+                bff: 'BFF (数字)',
+                'boulder+': 'Boulder+ (色)',
+                japanese: '日本の級',
+                vgrade: 'Vグレード'
+            };
+            gradeSystemSelect.innerHTML = `<option value="${selectedGradeSystem}">${systemNames[selectedGradeSystem]}</option>`;
+            
+            // フォーム表示
+            document.getElementById('gradeSystemGroup').style.display = 'block';
+            document.getElementById('gradeGroup').style.display = 'block';
+            document.getElementById('statusGroup').style.display = 'block';
+            document.getElementById('notesGroup').style.display = 'block';
+            document.getElementById('saveBtn').style.display = 'block';
+            
+            renderGradeButtons();
+        });
+
+        function hideAllFormGroups() {
+            document.getElementById('gradeSystemGroup').style.display = 'none';
+            document.getElementById('gradeGroup').style.display = 'none';
+            document.getElementById('statusGroup').style.display = 'none';
+            document.getElementById('notesGroup').style.display = 'none';
+            document.getElementById('saveBtn').style.display = 'none';
+        }
+
+        function hideFormGroupsAfterLocation() {
+            document.getElementById('gradeSystemGroup').style.display = 'none';
+            document.getElementById('gradeGroup').style.display = 'none';
+            document.getElementById('statusGroup').style.display = 'none';
+            document.getElementById('notesGroup').style.display = 'none';
+            document.getElementById('saveBtn').style.display = 'none';
+        }
+
+        // グレードボタン表示
+        function renderGradeButtons() {
+            const container = document.getElementById('gradeButtons');
+            const grades = gradeSystems[selectedGradeSystem];
+            
+            container.innerHTML = grades.map(grade => 
+                `<button class="grade-btn" data-grade="${grade}">${grade}</button>`
+            ).join('');
+
+            // イベントリスナー追加
+            document.querySelectorAll('.grade-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.grade-btn').forEach(b => {
+                        b.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    selectedGrade = this.getAttribute('data-grade');
+                    showGradeInfo(selectedGrade, selectedGradeSystem);
+                });
+            });
+        }
+
+        // グレード情報表示
+        function showGradeInfo(grade, system) {
+            const info = findGradeLevel(grade, system);
+            if (!info) {
+                document.getElementById('difficultyInfo').style.display = 'none';
+                return;
+            }
+
+            const difficultyText = document.getElementById('difficultyText');
+            const equivalents = document.getElementById('equivalents');
+            
+            difficultyText.innerHTML = `<strong>難易度：</strong>${info.difficulty}`;
+            
+            // 他のシステムでの同等グレード表示
+            let equivHTML = '';
+            for (const [sys, grades] of Object.entries(info)) {
+                if (sys !== 'difficulty' && sys !== system) {
+                    const systemName = {
+                        fitbloc: 'Fit Bloc',
+                        bff: 'BFF',
+                        'boulder+': 'Boulder+',
+                        japanese: '日本',
+                        vgrade: 'V'
+                    }[sys];
+                    equivHTML += `<span class="equiv-badge">${systemName}: ${grades.join('/')}</span>`;
+                }
+            }
+            equivalents.innerHTML = equivHTML;
+            
+            document.getElementById('difficultyInfo').style.display = 'block';
+        }
+
+        // グレードレベル検索
+        function findGradeLevel(grade, system) {
+            for (const level in gradeMapping) {
+                if (gradeMapping[level][system].includes(grade)) {
+                    return gradeMapping[level];
+                }
+            }
+            return null;
+        }
+
+        // 記録保存
+        function saveClimb() {
+            if (!selectedGrade) {
+                alert('グレードを選択してください');
+                return;
+            }
+
+            const brand = gymDatabase[selectedBrand];
+            const location = brand.locations[selectedLocation];
+
+            const climb = {
+                id: Date.now(),
+                brand: brand.name,
+                location: location.name,
+                gradeSystem: selectedGradeSystem,
+                grade: selectedGrade,
+                status: document.getElementById('status').value,
+                notes: document.getElementById('notes').value,
+                date: new Date().toISOString()
+            };
+
+            climbs.unshift(climb);
+            saveToStorage();
+            
+            // フォームをリセット
+            document.querySelectorAll('.grade-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            selectedGrade = null;
+            document.getElementById('notes').value = '';
+            document.getElementById('difficultyInfo').style.display = 'none';
+            
+            alert('✅ 記録を保存しました！');
+            updateDisplay();
+        }
+
+        // 記録削除
+        function deleteClimb(id) {
+            if (confirm('この記録を削除しますか？')) {
+                climbs = climbs.filter(climb => climb.id !== id);
+                saveToStorage();
+                displayClimbs();
+                displayStats();
+            }
+        }
+
+        // 履歴表示
+        function displayClimbs() {
+            const container = document.getElementById('climbsList');
+            
+            if (climbs.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <p>まだ記録がありません</p>
+                        <p style="font-size: 0.9em; margin-top: 10px; color: #999;">「記録」タブから登攀を記録してみましょう！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = climbs.map(climb => {
+                const date = new Date(climb.date);
+                const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+                const statusClass = climb.status === 'completed' ? 'status-completed' : 'status-attempted';
+                const statusText = climb.status === 'completed' ? '✅ 完登' : '🔄 トライ中';
+                
+                const systemName = {
+                    fitbloc: 'Fit Bloc',
+                    bff: 'BFF',
+                    'boulder+': 'Boulder+',
+                    japanese: '日本',
+                    vgrade: 'V'
+                }[climb.gradeSystem] || climb.gradeSystem;
+                
+                return `
+                    <div class="climb-card">
+                        <div class="climb-header">
+                            <div class="climb-grade">${climb.grade} (${systemName})</div>
+                            <div class="climb-date">${dateStr}</div>
+                        </div>
+                        <div class="climb-gym">📍 ${climb.brand} - ${climb.location}</div>
+                        <div style="margin-bottom: 10px;">
+                            <span class="climb-status ${statusClass}">${statusText}</span>
+                        </div>
+                        ${climb.notes ? `<p style="color: #666; margin-top: 10px; font-size: 0.9em;">${climb.notes}</p>` : ''}
+                        <button class="delete-btn" onclick="deleteClimb(${climb.id})">削除</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 統計表示
+        function displayStats() {
+            const total = climbs.length;
+            const completed = climbs.filter(c => c.status === 'completed').length;
+            const rate = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('totalClimbs').textContent = total;
+            document.getElementById('completedClimbs').textContent = completed;
+            document.getElementById('completionRate').textContent = rate + '%';
+
+            // グレード分布
+            const allGrades = {};
+            climbs.forEach(climb => {
+                const key = `${climb.grade} (${climb.gradeSystem})`;
+                allGrades[key] = (allGrades[key] || 0) + 1;
+            });
+
+            const maxCount = Math.max(...Object.values(allGrades), 1);
+            const container = document.getElementById('gradeDistribution');
+            
+            const sortedGrades = Object.entries(allGrades).sort((a, b) => b[1] - a[1]);
+            
+            if (sortedGrades.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p style="color: #999;">データがありません</p></div>';
+                return;
+            }
+
+            container.innerHTML = sortedGrades.map(([grade, count]) => {
+                const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
+                
+                return `
+                    <div class="grade-bar-container">
+                        <div class="grade-bar-label">
+                            <span>${grade}</span>
+                            <span>${count}回</span>
+                        </div>
+                        <div class="grade-bar">
+                            <div class="grade-bar-fill" style="width: ${percentage}%">
+                                ${count > 0 ? count + '回' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateDisplay() {
+            displayClimbs();
+            displayStats();
+        }
+
+        // 初期化
+        loadClimbs();
+    </script>
+</body>
+</html>
