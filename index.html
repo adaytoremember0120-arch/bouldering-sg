@@ -475,6 +475,214 @@
             margin-bottom: 16px;
             padding-left: 4px;
         }
+
+        /* Calendar Styles */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .calendar-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .calendar-nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-month-year {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .calendar-grid {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #666;
+            padding: 8px 4px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            min-height: 52px;
+            transition: all 0.2s;
+        }
+
+        .calendar-day:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day.other-month {
+            color: #ccc;
+        }
+
+        .calendar-day.today {
+            background: #667eea;
+            color: white;
+            font-weight: 700;
+        }
+
+        .calendar-day-number {
+            font-size: 1em;
+            margin-bottom: 2px;
+        }
+
+        .calendar-day-markers {
+            display: flex;
+            gap: 3px;
+            margin-top: 2px;
+        }
+
+        .calendar-marker {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .marker-bouldering {
+            background: #4caf50;
+        }
+
+        .marker-strength {
+            background: #2196f3;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-checkbox-group {
+            margin-bottom: 16px;
+        }
+
+        .modal-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .modal-checkbox input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .modal-checkbox label {
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            min-height: 48px;
+        }
+
+        .modal-btn-save {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn-cancel {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -486,6 +694,7 @@
 
         <div class="tabs">
             <button class="tab active" onclick="switchTab('record')">記録</button>
+            <button class="tab" onclick="switchTab('calendar')">📅</button>
             <button class="tab" onclick="switchTab('history')">履歴</button>
             <button class="tab" onclick="switchTab('stats')">統計</button>
         </div>
@@ -544,6 +753,28 @@
                 <button class="btn" id="saveBtn" onclick="saveClimb()" style="display: none;">記録を保存</button>
             </div>
 
+            <!-- カレンダータブ -->
+            <div id="calendar" class="tab-content">
+                <div class="calendar-header">
+                    <button class="calendar-nav-btn" onclick="changeMonth(-1)">◀</button>
+                    <div class="calendar-month-year" id="calendarMonthYear"></div>
+                    <button class="calendar-nav-btn" onclick="changeMonth(1)">▶</button>
+                </div>
+                
+                <div class="calendar-grid">
+                    <div class="calendar-weekdays">
+                        <div class="calendar-weekday">日</div>
+                        <div class="calendar-weekday">月</div>
+                        <div class="calendar-weekday">火</div>
+                        <div class="calendar-weekday">水</div>
+                        <div class="calendar-weekday">木</div>
+                        <div class="calendar-weekday">金</div>
+                        <div class="calendar-weekday">土</div>
+                    </div>
+                    <div class="calendar-days" id="calendarDays"></div>
+                </div>
+            </div>
+
             <!-- 履歴タブ -->
             <div id="history" class="tab-content">
                 <div class="section-title">登攀履歴</div>
@@ -572,6 +803,27 @@
 
                 <div class="section-title">グレード別分布</div>
                 <div id="gradeDistribution"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise Modal -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">運動を記録</div>
+            <div class="modal-checkbox-group">
+                <div class="modal-checkbox">
+                    <input type="checkbox" id="checkBouldering">
+                    <label for="checkBouldering">🧗 ボルダリング</label>
+                </div>
+                <div class="modal-checkbox">
+                    <input type="checkbox" id="checkStrength">
+                    <label for="checkStrength">💪 筋トレ</label>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeExerciseModal()">キャンセル</button>
+                <button class="modal-btn modal-btn-save" onclick="saveExercise()">保存</button>
             </div>
         </div>
     </div>
@@ -834,6 +1086,9 @@
         let selectedBrand = null;
         let selectedLocation = null;
         let climbs = [];
+        let exerciseCalendar = {};
+        let currentCalendarDate = new Date();
+        let selectedCalendarDate = null;
 
         // ローカルストレージから読み込み
         function loadClimbs() {
@@ -845,12 +1100,23 @@
                     climbs = [];
                 }
             }
+            
+            const savedCalendar = localStorage.getItem('sgExerciseCalendar');
+            if (savedCalendar) {
+                try {
+                    exerciseCalendar = JSON.parse(savedCalendar);
+                } catch (e) {
+                    exerciseCalendar = {};
+                }
+            }
+            
             updateDisplay();
         }
 
         // ローカルストレージに保存
         function saveToStorage() {
             localStorage.setItem('sgBoulderingClimbs', JSON.stringify(climbs));
+            localStorage.setItem('sgExerciseCalendar', JSON.stringify(exerciseCalendar));
         }
 
         // タブ切り替え
@@ -865,7 +1131,9 @@
             event.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
             
-            if (tabName === 'history') {
+            if (tabName === 'calendar') {
+                renderCalendar();
+            } else if (tabName === 'history') {
                 displayClimbs();
             } else if (tabName === 'stats') {
                 displayStats();
@@ -1015,6 +1283,15 @@
             };
 
             climbs.unshift(climb);
+            
+            // カレンダーに自動記録
+            const today = new Date();
+            const dateKey = formatDateKey(today);
+            if (!exerciseCalendar[dateKey]) {
+                exerciseCalendar[dateKey] = { bouldering: false, strength: false };
+            }
+            exerciseCalendar[dateKey].bouldering = true;
+            
             saveToStorage();
             
             document.querySelectorAll('.grade-btn').forEach(btn => {
@@ -1201,6 +1478,160 @@
             displayClimbs();
             displayStats();
         }
+
+        // === Calendar Functions ===
+        
+        function formatDateKey(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function changeMonth(delta) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            // Set header
+            const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+            document.getElementById('calendarMonthYear').textContent = `${year}年 ${monthNames[month]}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+            
+            // Get previous month's last days
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            
+            const calendarDays = document.getElementById('calendarDays');
+            calendarDays.innerHTML = '';
+            
+            const today = new Date();
+            const todayKey = formatDateKey(today);
+            
+            // Previous month's days
+            for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+                const day = prevMonthLastDay - i;
+                const dayEl = createDayElement(day, true, null);
+                calendarDays.appendChild(dayEl);
+            }
+            
+            // Current month's days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dateKey = formatDateKey(date);
+                const isToday = dateKey === todayKey;
+                const dayEl = createDayElement(day, false, dateKey, isToday);
+                calendarDays.appendChild(dayEl);
+            }
+            
+            // Next month's days
+            const totalCells = calendarDays.children.length;
+            const remainingCells = 42 - totalCells; // 6 rows * 7 days
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayEl = createDayElement(day, true, null);
+                calendarDays.appendChild(dayEl);
+            }
+        }
+
+        function createDayElement(day, isOtherMonth, dateKey, isToday = false) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day';
+            
+            if (isOtherMonth) {
+                dayEl.classList.add('other-month');
+            }
+            if (isToday) {
+                dayEl.classList.add('today');
+            }
+            
+            const dayNumber = document.createElement('div');
+            dayNumber.className = 'calendar-day-number';
+            dayNumber.textContent = day;
+            dayEl.appendChild(dayNumber);
+            
+            if (dateKey && exerciseCalendar[dateKey]) {
+                const markers = document.createElement('div');
+                markers.className = 'calendar-day-markers';
+                
+                if (exerciseCalendar[dateKey].bouldering) {
+                    const marker = document.createElement('div');
+                    marker.className = 'calendar-marker marker-bouldering';
+                    markers.appendChild(marker);
+                }
+                
+                if (exerciseCalendar[dateKey].strength) {
+                    const marker = document.createElement('div');
+                    marker.className = 'calendar-marker marker-strength';
+                    markers.appendChild(marker);
+                }
+                
+                dayEl.appendChild(markers);
+            }
+            
+            if (!isOtherMonth && dateKey) {
+                dayEl.onclick = () => openExerciseModal(dateKey);
+            }
+            
+            return dayEl;
+        }
+
+        function openExerciseModal(dateKey) {
+            selectedCalendarDate = dateKey;
+            const modal = document.getElementById('exerciseModal');
+            
+            // Set title with date
+            const [year, month, day] = dateKey.split('-');
+            document.getElementById('modalTitle').textContent = `${month}月${day}日の運動記録`;
+            
+            // Load existing data
+            const data = exerciseCalendar[dateKey] || { bouldering: false, strength: false };
+            document.getElementById('checkBouldering').checked = data.bouldering;
+            document.getElementById('checkStrength').checked = data.strength;
+            
+            modal.classList.add('show');
+        }
+
+        function closeExerciseModal() {
+            document.getElementById('exerciseModal').classList.remove('show');
+            selectedCalendarDate = null;
+        }
+
+        function saveExercise() {
+            if (!selectedCalendarDate) return;
+            
+            const bouldering = document.getElementById('checkBouldering').checked;
+            const strength = document.getElementById('checkStrength').checked;
+            
+            if (bouldering || strength) {
+                exerciseCalendar[selectedCalendarDate] = {
+                    bouldering: bouldering,
+                    strength: strength
+                };
+            } else {
+                // Remove entry if both unchecked
+                delete exerciseCalendar[selectedCalendarDate];
+            }
+            
+            saveToStorage();
+            closeExerciseModal();
+            renderCalendar();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('exerciseModal');
+            if (event.target === modal) {
+                closeExerciseModal();
+            }
+        });
 
         // 初期化
         loadClimbs();
