@@ -6,7 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ボルダリング SG">
-    <title>シンガポール・ボルダリングガイド</title>
+    <meta name="theme-color" content="#667eea">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧗</text></svg>">
+    <title>シンガポール・ボルダリング・コンプリート</title>
     <style>
         * {
             margin: 0;
@@ -104,16 +106,17 @@
 
         select, textarea {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: 2px solid #e0e0e0;
             border-radius: 12px;
-            font-size: 1em;
+            font-size: 1.05em;
             background: white;
             transition: all 0.3s;
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23999' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 14px center;
+            min-height: 52px;
         }
 
         select:focus, textarea:focus {
@@ -150,7 +153,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
 
         .info-row:last-child {
@@ -158,8 +161,9 @@
         }
 
         .info-icon {
-            width: 20px;
+            width: 24px;
             margin-right: 8px;
+            font-size: 1.2em;
         }
 
         .info-label {
@@ -168,34 +172,48 @@
             margin-right: 6px;
         }
 
+        .map-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #4285f4;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
         .gym-link {
             display: inline-block;
-            margin-top: 10px;
-            padding: 8px 16px;
+            margin-top: 12px;
+            margin-left: 8px;
+            padding: 10px 18px;
             background: #4caf50;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.85em;
+            border-radius: 10px;
+            font-size: 0.9em;
             font-weight: 600;
         }
 
         .grade-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 10px;
+            gap: 12px;
         }
 
         .grade-btn {
-            padding: 16px 12px;
+            padding: 18px 12px;
             border: 2px solid #e0e0e0;
             background: white;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
-            font-size: 1em;
-            min-height: 56px;
+            font-size: 1.05em;
+            min-height: 58px;
         }
 
         .grade-btn:active {
@@ -239,16 +257,17 @@
 
         .btn {
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1.1em;
+            font-size: 1.15em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            min-height: 56px;
         }
 
         .btn:active {
@@ -272,7 +291,7 @@
         }
 
         .climb-grade {
-            font-size: 1.4em;
+            font-size: 1.5em;
             font-weight: 700;
             color: #667eea;
         }
@@ -336,6 +355,59 @@
             font-size: 0.85em;
         }
 
+        .skill-level-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .skill-level-title {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .skill-level-grade {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .skill-level-desc {
+            font-size: 0.95em;
+            opacity: 0.85;
+        }
+
+        .progress-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .progress-label {
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .progress-bar-outer {
+            height: 12px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background: white;
+            border-radius: 6px;
+            transition: width 0.5s;
+        }
+
         .grade-bar-container {
             margin-bottom: 16px;
         }
@@ -383,12 +455,13 @@
             background: #f44336;
             color: white;
             border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.95em;
             margin-top: 12px;
             font-weight: 600;
+            min-height: 44px;
         }
 
         .delete-btn:active {
@@ -425,14 +498,11 @@
                     <select id="gymBrand">
                         <option value="">選択してください</option>
                         <option value="fitbloc">Fit Bloc</option>
+                        <option value="bm">Boulder Movement (BM)</option>
                         <option value="bff">BFF Climb</option>
                         <option value="boulder+">Boulder+</option>
-                        <option value="bouldermovement">Boulder Movement</option>
                         <option value="climbcentral">Climb Central</option>
                         <option value="boulderplanet">Boulder Planet</option>
-                        <option value="kinetics">Kinetics Climbing</option>
-                        <option value="groundup">Ground Up Climbing</option>
-                        <option value="other">その他</option>
                     </select>
                 </div>
 
@@ -482,6 +552,8 @@
 
             <!-- 統計タブ -->
             <div id="stats" class="tab-content">
+                <div id="skillLevelCard"></div>
+                
                 <div class="section-title">統計情報</div>
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -505,7 +577,7 @@
     </div>
 
     <script>
-        // ジムデータベース
+        // ジムデータベース（最新版）
         const gymDatabase = {
             fitbloc: {
                 name: 'Fit Bloc',
@@ -513,10 +585,73 @@
                 locations: {
                     'Science Park': {
                         name: 'Science Park',
+                        fullName: 'Fit Bloc Science Park',
                         price: '$28',
                         peakHours: '18-21時',
                         booking: 'アプリ予約必須',
                         url: 'https://www.fitbloc.com/'
+                    },
+                    'Maxwell': {
+                        name: 'Maxwell',
+                        fullName: 'Fit Bloc Maxwell',
+                        price: '$28',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.fitbloc.com/'
+                    },
+                    'Depot Heights': {
+                        name: 'Depot Heights',
+                        fullName: 'Fit Bloc Depot Heights',
+                        price: '$28',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.fitbloc.com/'
+                    }
+                }
+            },
+            bm: {
+                name: 'Boulder Movement',
+                gradeSystem: 'bm',
+                locations: {
+                    'Bugis': {
+                        name: 'Bugis+',
+                        fullName: 'Boulder Movement Bugis',
+                        price: '$35',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.boulderm.com/'
+                    },
+                    'Downtown': {
+                        name: 'Downtown',
+                        fullName: 'Boulder Movement Downtown',
+                        price: '$35',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.boulderm.com/'
+                    },
+                    'Rochor': {
+                        name: 'Rochor',
+                        fullName: 'Boulder Movement Rochor',
+                        price: '$35',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.boulderm.com/'
+                    },
+                    'Tai Seng': {
+                        name: 'Tai Seng',
+                        fullName: 'Boulder Movement Tai Seng',
+                        price: '$35',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.boulderm.com/'
+                    },
+                    'Suntec': {
+                        name: 'Suntec',
+                        fullName: 'Boulder Movement Suntec',
+                        price: '$35',
+                        peakHours: '18-21時',
+                        booking: 'アプリ予約必須',
+                        url: 'https://www.boulderm.com/'
                     }
                 }
             },
@@ -526,15 +661,25 @@
                 locations: {
                     'Bendemeer': {
                         name: 'Bendemeer',
+                        fullName: 'BFF Climb Bendemeer',
                         price: '$27.25',
-                        peakHours: '週末・平日夜',
+                        peakHours: '週末',
                         booking: '予約推奨',
                         url: 'https://www.bffclimb.com/'
                     },
                     'Tampines': {
                         name: 'Tampines',
+                        fullName: 'BFF Climb Tampines',
                         price: '$27.25',
-                        peakHours: '週末・平日夜',
+                        peakHours: '週末',
+                        booking: '予約推奨',
+                        url: 'https://www.bffclimb.com/'
+                    },
+                    'Tampines Hub': {
+                        name: 'Tampines Hub',
+                        fullName: 'BFF Climb Tampines Hub',
+                        price: '$27.25',
+                        peakHours: '週末',
                         booking: '予約推奨',
                         url: 'https://www.bffclimb.com/'
                     }
@@ -546,6 +691,7 @@
                 locations: {
                     'Aperia': {
                         name: 'Aperia',
+                        fullName: 'Boulder+ Aperia',
                         price: '$32',
                         peakHours: '平日夜',
                         booking: '予約不要',
@@ -553,51 +699,11 @@
                     },
                     'Chevrons': {
                         name: 'Chevrons',
+                        fullName: 'Boulder+ Chevrons',
                         price: '$32',
                         peakHours: '平日夜',
                         booking: '予約不要',
                         url: 'https://www.boulderplusclimbing.com/'
-                    }
-                }
-            },
-            bouldermovement: {
-                name: 'Boulder Movement',
-                gradeSystem: 'vgrade',
-                locations: {
-                    'Bugis': {
-                        name: 'Bugis+',
-                        price: '$35',
-                        peakHours: '平日夜・週末',
-                        booking: 'アプリ予約必須',
-                        url: 'https://bouldermovement.com/'
-                    },
-                    'Downtown': {
-                        name: 'Downtown',
-                        price: '$35',
-                        peakHours: '平日夜・週末',
-                        booking: 'アプリ予約必須',
-                        url: 'https://bouldermovement.com/'
-                    },
-                    'Rochor': {
-                        name: 'Rochor',
-                        price: '$35',
-                        peakHours: '平日夜・週末',
-                        booking: 'アプリ予約必須',
-                        url: 'https://bouldermovement.com/'
-                    },
-                    'Tai Seng': {
-                        name: 'Tai Seng',
-                        price: '$35',
-                        peakHours: '平日夜・週末',
-                        booking: 'アプリ予約必須',
-                        url: 'https://bouldermovement.com/'
-                    },
-                    'Suntec': {
-                        name: 'Suntec',
-                        price: '$35',
-                        peakHours: '平日夜・週末',
-                        booking: 'アプリ予約必須',
-                        url: 'https://bouldermovement.com/'
                     }
                 }
             },
@@ -607,37 +713,42 @@
                 locations: {
                     'Novena': {
                         name: 'Novena',
+                        fullName: 'Climb Central Novena',
                         price: '$22-32',
-                        peakHours: '平日夜・週末',
-                        booking: '初回のみ予約推奨',
+                        peakHours: '週末終日',
+                        booking: '初回予約推奨',
                         url: 'https://www.climbcentral.sg/'
                     },
                     'Funan': {
                         name: 'Funan',
+                        fullName: 'Climb Central Funan',
                         price: '$22-32',
-                        peakHours: '平日夜・週末',
-                        booking: '初回のみ予約推奨',
+                        peakHours: '週末終日',
+                        booking: '初回予約推奨',
                         url: 'https://www.climbcentral.sg/'
                     },
                     'Kallang': {
                         name: 'Kallang',
+                        fullName: 'Climb Central Kallang',
                         price: '$22-32',
-                        peakHours: '平日夜・週末',
-                        booking: '初回のみ予約推奨',
+                        peakHours: '週末終日',
+                        booking: '初回予約推奨',
                         url: 'https://www.climbcentral.sg/'
                     },
                     'i12 Katong': {
                         name: 'i12 Katong',
+                        fullName: 'Climb Central i12 Katong',
                         price: '$22-32',
-                        peakHours: '平日夜・週末',
-                        booking: '初回のみ予約推奨',
+                        peakHours: '週末終日',
+                        booking: '初回予約推奨',
                         url: 'https://www.climbcentral.sg/'
                     },
                     'SAFRA': {
                         name: 'SAFRA',
+                        fullName: 'Climb Central SAFRA',
                         price: '$22-32',
-                        peakHours: '平日夜・週末',
-                        booking: '初回のみ予約推奨',
+                        peakHours: '週末終日',
+                        booking: '初回予約推奨',
                         url: 'https://www.climbcentral.sg/'
                     }
                 }
@@ -648,103 +759,74 @@
                 locations: {
                     'Sembawang': {
                         name: 'Sembawang',
+                        fullName: 'Boulder Planet Sembawang',
                         price: '$33',
-                        peakHours: '平日夜・週末',
+                        peakHours: '週末昼',
                         booking: '予約不要',
                         url: 'https://www.boulderplanet.sg/'
                     },
                     'Tai Seng': {
                         name: 'Tai Seng',
+                        fullName: 'Boulder Planet Tai Seng',
                         price: '$33',
-                        peakHours: '平日夜・週末',
+                        peakHours: '週末昼',
                         booking: '予約不要',
                         url: 'https://www.boulderplanet.sg/'
                     }
                 }
-            },
-            kinetics: {
-                name: 'Kinetics Climbing',
-                gradeSystem: 'vgrade',
-                locations: {
-                    'Kinetics': {
-                        name: 'Kinetics Climbing',
-                        price: '$30',
-                        peakHours: '平日夜・週末',
-                        booking: '予約推奨',
-                        url: 'https://www.kineticsclimbing.com.sg/'
-                    }
-                }
-            },
-            groundup: {
-                name: 'Ground Up Climbing',
-                gradeSystem: 'vgrade',
-                locations: {
-                    'Ground Up': {
-                        name: 'Ground Up Climbing',
-                        price: '$28',
-                        peakHours: '平日夜・週末',
-                        booking: '予約不要',
-                        url: 'https://www.groundupclimbing.com/'
-                    }
-                }
-            },
-            other: {
-                name: 'その他',
-                gradeSystem: 'vgrade',
-                locations: {
-                    'Other': {
-                        name: 'その他のジム',
-                        price: '各ジムによる',
-                        peakHours: '各ジムによる',
-                        booking: '各ジムによる',
-                        url: ''
-                    }
-                }
             }
         };
 
-        // グレード対比表
-        const gradeMapping = {
-            beginner: {
-                fitbloc: ['25%'],
-                bff: ['6', '7', '8'],
-                'boulder+': ['水色', '青'],
-                japanese: ['5級', '4級'],
-                vgrade: ['V1', 'V2'],
-                difficulty: '基礎ムーブの習得段階'
+        // Vグレード換算テーブル
+        const vGradeConversion = {
+            bm: {
+                '赤': 4,
+                'ピンク': 5,
+                '紫': 6,
+                '黒': 7,
+                '白': 8
             },
-            intermediate: {
-                fitbloc: ['50%'],
-                bff: ['9', '10'],
-                'boulder+': ['青', '紫'],
-                japanese: ['4級', '3級'],
-                vgrade: ['V2', 'V3'],
-                difficulty: '今の君のメイン層'
+            bff: {
+                '10': 4, '11': 4,
+                '12': 5,
+                '13': 6,
+                '14': 7
             },
-            advanced: {
-                fitbloc: ['75%'],
-                bff: ['11', '12'],
-                'boulder+': ['緑'],
-                japanese: ['2級', '1級'],
-                vgrade: ['V4', 'V5'],
-                difficulty: 'ここから急に強度が上がる'
+            fitbloc: {
+                '100%': 4, '110%': 4,
+                '120%': 5,
+                '130%': 6,
+                '140%': 7
             },
-            expert: {
-                fitbloc: ['100%'],
-                bff: ['13', '14'],
-                'boulder+': ['ピンク'],
-                japanese: ['初段以上'],
-                vgrade: ['V6', 'V7', 'V8+'],
-                difficulty: '最難関。強靭な保持力が必要'
+            'boulder+': {
+                'White': 4,
+                'Black': 5,
+                'Purple': 6
+            },
+            japanese: {
+                '1級': 4,
+                '初段': 5,
+                '二段': 6,
+                '三段': 7
+            },
+            vgrade: {
+                'V4': 4,
+                'V5': 5,
+                'V6': 6,
+                'V7': 7,
+                'V8': 8,
+                'V8+': 9
             }
         };
 
+        // グレードシステム定義
         const gradeSystems = {
-            fitbloc: ['25%', '50%', '75%', '100%'],
+            fitbloc: ['25%', '50%', '75%', '100%', '110%', '120%', '130%', '140%'],
+            bm: ['黄', '緑', '青', '赤', 'ピンク', '紫', '黒', '白'],
             bff: ['6', '7', '8', '9', '10', '11', '12', '13', '14'],
-            'boulder+': ['水色', '青', '紫', '緑', 'ピンク'],
-            japanese: ['5級', '4級', '3級', '2級', '1級', '初段以上'],
-            vgrade: ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8+']
+            'boulder+': ['水色', '青', '紫', '緑', 'White', 'Black', 'Purple'],
+            japanese: ['5級', '4級', '3級', '2級', '1級', '初段', '二段', '三段'],
+            vgrade: ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V8+']
         };
 
         let selectedGrade = null;
@@ -790,6 +872,11 @@
             }
         }
 
+        // Google Maps URLを生成
+        function getGoogleMapsUrl(fullName) {
+            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullName + ' Singapore')}`;
+        }
+
         // ブランド選択時
         document.getElementById('gymBrand').addEventListener('change', function() {
             selectedBrand = this.value;
@@ -802,7 +889,6 @@
                 return;
             }
 
-            // 場所のオプションを設定
             const brand = gymDatabase[selectedBrand];
             locationSelect.innerHTML = '<option value="">選択してください</option>';
             
@@ -829,9 +915,9 @@
                 return;
             }
 
-            // ジム情報表示
             const brand = gymDatabase[selectedBrand];
             const location = brand.locations[selectedLocation];
+            const mapsUrl = getGoogleMapsUrl(location.fullName);
             
             infoPanel.innerHTML = `
                 <div class="info-row">
@@ -849,15 +935,16 @@
                     <span class="info-label">予約:</span>
                     <span>${location.booking}</span>
                 </div>
-                ${location.url ? `<a href="${location.url}" target="_blank" class="gym-link">ジムのサイトを開く →</a>` : ''}
+                <a href="${mapsUrl}" target="_blank" class="map-btn">📍 Google Mapsで開く</a>
+                ${location.url ? `<a href="${location.url}" target="_blank" class="gym-link">🌐 公式サイト</a>` : ''}
             `;
             infoPanel.classList.add('show');
             
-            // グレードシステムを自動設定
             selectedGradeSystem = brand.gradeSystem;
             const gradeSystemSelect = document.getElementById('gradeSystem');
             const systemNames = {
                 fitbloc: 'Fit Bloc (充電 %)',
+                bm: 'Boulder Movement (色)',
                 bff: 'BFF (数字)',
                 'boulder+': 'Boulder+ (色)',
                 japanese: '日本の級',
@@ -865,7 +952,6 @@
             };
             gradeSystemSelect.innerHTML = `<option value="${selectedGradeSystem}">${systemNames[selectedGradeSystem]}</option>`;
             
-            // フォーム表示
             document.getElementById('gradeSystemGroup').style.display = 'block';
             document.getElementById('gradeGroup').style.display = 'block';
             document.getElementById('statusGroup').style.display = 'block';
@@ -884,11 +970,7 @@
         }
 
         function hideFormGroupsAfterLocation() {
-            document.getElementById('gradeSystemGroup').style.display = 'none';
-            document.getElementById('gradeGroup').style.display = 'none';
-            document.getElementById('statusGroup').style.display = 'none';
-            document.getElementById('notesGroup').style.display = 'none';
-            document.getElementById('saveBtn').style.display = 'none';
+            hideAllFormGroups();
         }
 
         // グレードボタン表示
@@ -900,7 +982,6 @@
                 `<button class="grade-btn" data-grade="${grade}">${grade}</button>`
             ).join('');
 
-            // イベントリスナー追加
             document.querySelectorAll('.grade-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.grade-btn').forEach(b => {
@@ -908,51 +989,8 @@
                     });
                     this.classList.add('selected');
                     selectedGrade = this.getAttribute('data-grade');
-                    showGradeInfo(selectedGrade, selectedGradeSystem);
                 });
             });
-        }
-
-        // グレード情報表示
-        function showGradeInfo(grade, system) {
-            const info = findGradeLevel(grade, system);
-            if (!info) {
-                document.getElementById('difficultyInfo').style.display = 'none';
-                return;
-            }
-
-            const difficultyText = document.getElementById('difficultyText');
-            const equivalents = document.getElementById('equivalents');
-            
-            difficultyText.innerHTML = `<strong>難易度：</strong>${info.difficulty}`;
-            
-            // 他のシステムでの同等グレード表示
-            let equivHTML = '';
-            for (const [sys, grades] of Object.entries(info)) {
-                if (sys !== 'difficulty' && sys !== system) {
-                    const systemName = {
-                        fitbloc: 'Fit Bloc',
-                        bff: 'BFF',
-                        'boulder+': 'Boulder+',
-                        japanese: '日本',
-                        vgrade: 'V'
-                    }[sys];
-                    equivHTML += `<span class="equiv-badge">${systemName}: ${grades.join('/')}</span>`;
-                }
-            }
-            equivalents.innerHTML = equivHTML;
-            
-            document.getElementById('difficultyInfo').style.display = 'block';
-        }
-
-        // グレードレベル検索
-        function findGradeLevel(grade, system) {
-            for (const level in gradeMapping) {
-                if (gradeMapping[level][system].includes(grade)) {
-                    return gradeMapping[level];
-                }
-            }
-            return null;
         }
 
         // 記録保存
@@ -979,16 +1017,61 @@
             climbs.unshift(climb);
             saveToStorage();
             
-            // フォームをリセット
             document.querySelectorAll('.grade-btn').forEach(btn => {
                 btn.classList.remove('selected');
             });
             selectedGrade = null;
             document.getElementById('notes').value = '';
-            document.getElementById('difficultyInfo').style.display = 'none';
             
             alert('✅ 記録を保存しました！');
             updateDisplay();
+        }
+
+        // Vグレード推定エンジン
+        function calculateSkillLevel() {
+            const completedClimbs = climbs.filter(c => c.status === 'completed');
+            
+            if (completedClimbs.length === 0) {
+                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: 'まだ完登記録がありません' };
+            }
+
+            let vGrades = [];
+            completedClimbs.forEach(climb => {
+                const system = climb.gradeSystem;
+                const grade = climb.grade;
+                
+                if (vGradeConversion[system] && vGradeConversion[system][grade]) {
+                    vGrades.push(vGradeConversion[system][grade]);
+                }
+            });
+
+            if (vGrades.length === 0) {
+                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: '換算可能な記録がありません' };
+            }
+
+            // 最高グレードを実力とする
+            const maxV = Math.max(...vGrades);
+            const countAtMax = vGrades.filter(v => v === maxV).length;
+            const totalCompleted = completedClimbs.length;
+            
+            // 次のグレードへの進捗（同じグレードを3回完登で次へ）
+            const progress = Math.min((countAtMax / 3) * 100, 100);
+            
+            const descriptions = {
+                4: '基礎ができています',
+                5: '中級者レベルです',
+                6: '上級者レベルです',
+                7: 'エキスパートです',
+                8: 'プロ級です',
+                9: '世界レベルです'
+            };
+
+            return {
+                grade: `V${maxV}`,
+                progress: progress,
+                nextGrade: `V${maxV + 1}`,
+                description: descriptions[maxV] || '素晴らしい！'
+            };
         }
 
         // 記録削除
@@ -1024,6 +1107,7 @@
                 
                 const systemName = {
                     fitbloc: 'Fit Bloc',
+                    bm: 'BM',
                     bff: 'BFF',
                     'boulder+': 'Boulder+',
                     japanese: '日本',
@@ -1056,6 +1140,26 @@
             document.getElementById('totalClimbs').textContent = total;
             document.getElementById('completedClimbs').textContent = completed;
             document.getElementById('completionRate').textContent = rate + '%';
+
+            // スキルレベル表示
+            const skillLevel = calculateSkillLevel();
+            const skillCard = document.getElementById('skillLevelCard');
+            
+            skillCard.innerHTML = `
+                <div class="skill-level-card">
+                    <div class="skill-level-title">現在の推定実力</div>
+                    <div class="skill-level-grade">${skillLevel.grade}</div>
+                    <div class="skill-level-desc">${skillLevel.description}</div>
+                    ${skillLevel.progress > 0 ? `
+                        <div class="progress-section">
+                            <div class="progress-label">${skillLevel.nextGrade}まで ${Math.round(skillLevel.progress)}%</div>
+                            <div class="progress-bar-outer">
+                                <div class="progress-bar-inner" style="width: ${skillLevel.progress}%"></div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
 
             // グレード分布
             const allGrades = {};
