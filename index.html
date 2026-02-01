@@ -64,15 +64,16 @@
 
         .tab {
             flex: 1;
-            padding: 16px;
+            padding: 16px 8px;
             background: white;
             border: none;
             color: #999;
-            font-size: 0.95em;
+            font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
             border-bottom: 3px solid transparent;
+            min-height: 52px;
         }
 
         .tab.active {
@@ -172,30 +173,50 @@
             margin-right: 6px;
         }
 
+        .pass-info {
+            background: rgba(255,255,255,0.6);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .pass-info strong {
+            color: #4caf50;
+        }
+
         .map-btn {
             display: inline-block;
             margin-top: 12px;
-            padding: 10px 18px;
+            padding: 12px 18px;
             background: #4285f4;
             color: white;
             text-decoration: none;
             border-radius: 10px;
-            font-size: 0.9em;
+            font-size: 0.95em;
             font-weight: 600;
             box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .gym-link {
             display: inline-block;
             margin-top: 12px;
             margin-left: 8px;
-            padding: 10px 18px;
+            padding: 12px 18px;
             background: #4caf50;
             color: white;
             text-decoration: none;
             border-radius: 10px;
-            font-size: 0.9em;
+            font-size: 0.95em;
             font-weight: 600;
+            min-height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .grade-buttons {
@@ -227,34 +248,6 @@
             transform: scale(1.05);
         }
 
-        .difficulty-info {
-            margin-top: 15px;
-            padding: 16px;
-            background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
-            border-radius: 12px;
-            font-size: 0.9em;
-        }
-
-        .difficulty-info strong {
-            color: #f57c00;
-        }
-
-        .equivalents {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .equiv-badge {
-            background: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            font-weight: 600;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
         .btn {
             width: 100%;
             padding: 18px;
@@ -273,6 +266,218 @@
         .btn:active {
             transform: translateY(2px);
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Calendar Styles */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .calendar-nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            min-width: 50px;
+            min-height: 50px;
+            font-weight: 700;
+        }
+
+        .calendar-nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-month-year {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .calendar-grid {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .calendar-weekday {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #666;
+            padding: 8px 4px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+            min-height: 56px;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .calendar-day:active {
+            transform: scale(0.95);
+        }
+
+        .calendar-day.other-month {
+            color: #ccc;
+        }
+
+        .calendar-day.today {
+            background: #667eea;
+            color: white;
+            font-weight: 700;
+            border-color: #667eea;
+        }
+
+        .calendar-day-number {
+            font-size: 1.05em;
+            margin-bottom: 2px;
+        }
+
+        .calendar-day-markers {
+            display: flex;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .calendar-marker {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .marker-bouldering {
+            background: #4caf50;
+        }
+
+        .marker-strength {
+            background: #2196f3;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .modal-checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            min-height: 60px;
+        }
+
+        .modal-checkbox input[type="checkbox"] {
+            width: 28px;
+            height: 28px;
+            margin-right: 14px;
+            cursor: pointer;
+        }
+
+        .modal-checkbox label {
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            min-height: 54px;
+        }
+
+        .modal-btn-save {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn-cancel {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
         }
 
         .climb-card {
@@ -357,7 +562,7 @@
 
         .skill-level-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 24px;
+            padding: 28px;
             border-radius: 20px;
             margin-bottom: 24px;
             color: white;
@@ -366,45 +571,46 @@
         }
 
         .skill-level-title {
-            font-size: 0.9em;
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .skill-level-grade {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .skill-level-desc {
+            font-size: 1em;
             opacity: 0.9;
             margin-bottom: 8px;
         }
 
-        .skill-level-grade {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .skill-level-desc {
-            font-size: 0.95em;
-            opacity: 0.85;
-        }
-
         .progress-section {
-            margin-top: 16px;
-            padding-top: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.3);
         }
 
         .progress-label {
-            font-size: 0.85em;
-            margin-bottom: 8px;
-            opacity: 0.9;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.95;
         }
 
         .progress-bar-outer {
-            height: 12px;
+            height: 14px;
             background: rgba(255,255,255,0.3);
-            border-radius: 6px;
+            border-radius: 7px;
             overflow: hidden;
         }
 
         .progress-bar-inner {
             height: 100%;
             background: white;
-            border-radius: 6px;
+            border-radius: 7px;
             transition: width 0.5s;
         }
 
@@ -461,7 +667,7 @@
             font-size: 0.95em;
             margin-top: 12px;
             font-weight: 600;
-            min-height: 44px;
+            min-height: 48px;
         }
 
         .delete-btn:active {
@@ -474,214 +680,6 @@
             color: #333;
             margin-bottom: 16px;
             padding-left: 4px;
-        }
-
-        /* Calendar Styles */
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            background: white;
-            padding: 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        .calendar-nav-btn {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            min-width: 44px;
-            min-height: 44px;
-        }
-
-        .calendar-nav-btn:active {
-            transform: scale(0.95);
-        }
-
-        .calendar-month-year {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .calendar-grid {
-            background: white;
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        .calendar-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            margin-bottom: 8px;
-        }
-
-        .calendar-weekday {
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.85em;
-            color: #666;
-            padding: 8px 4px;
-        }
-
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            cursor: pointer;
-            position: relative;
-            min-height: 52px;
-            transition: all 0.2s;
-        }
-
-        .calendar-day:active {
-            transform: scale(0.95);
-        }
-
-        .calendar-day.other-month {
-            color: #ccc;
-        }
-
-        .calendar-day.today {
-            background: #667eea;
-            color: white;
-            font-weight: 700;
-        }
-
-        .calendar-day-number {
-            font-size: 1em;
-            margin-bottom: 2px;
-        }
-
-        .calendar-day-markers {
-            display: flex;
-            gap: 3px;
-            margin-top: 2px;
-        }
-
-        .calendar-marker {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .marker-bouldering {
-            background: #4caf50;
-        }
-
-        .marker-strength {
-            background: #2196f3;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .modal-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .modal-checkbox-group {
-            margin-bottom: 16px;
-        }
-
-        .modal-checkbox {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        .modal-checkbox input[type="checkbox"] {
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
-            cursor: pointer;
-        }
-
-        .modal-checkbox label {
-            font-size: 1.05em;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 0;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            min-height: 48px;
-        }
-
-        .modal-btn-save {
-            background: #667eea;
-            color: white;
-        }
-
-        .modal-btn-cancel {
-            background: #e0e0e0;
-            color: #666;
-        }
-
-        .modal-btn:active {
-            transform: scale(0.95);
         }
     </style>
 </head>
@@ -710,6 +708,9 @@
                         <option value="bm">Boulder Movement (BM)</option>
                         <option value="bff">BFF Climb</option>
                         <option value="boulder+">Boulder+</option>
+                        <option value="zvertigo">Z-Vertigo</option>
+                        <option value="oyeyo">Oyeyo</option>
+                        <option value="boulderworld">Boulder World</option>
                         <option value="climbcentral">Climb Central</option>
                         <option value="boulderplanet">Boulder Planet</option>
                     </select>
@@ -731,10 +732,6 @@
                 <div class="form-group" id="gradeGroup" style="display: none;">
                     <label>グレード</label>
                     <div class="grade-buttons" id="gradeButtons"></div>
-                    <div id="difficultyInfo" class="difficulty-info" style="display: none;">
-                        <div id="difficultyText"></div>
-                        <div class="equivalents" id="equivalents"></div>
-                    </div>
                 </div>
 
                 <div class="form-group" id="statusGroup" style="display: none;">
@@ -829,245 +826,139 @@
     </div>
 
     <script>
-        // ジムデータベース（最新版）
+        // ジムデータベース（最新版・回数券情報付き）
         const gymDatabase = {
             fitbloc: {
                 name: 'Fit Bloc',
                 gradeSystem: 'fitbloc',
+                singlePrice: '$28',
+                passPrice: '$190',
+                perSession: '$19',
                 locations: {
-                    'Science Park': {
-                        name: 'Science Park',
-                        fullName: 'Fit Bloc Science Park',
-                        price: '$28',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.fitbloc.com/'
-                    },
-                    'Maxwell': {
-                        name: 'Maxwell',
-                        fullName: 'Fit Bloc Maxwell',
-                        price: '$28',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.fitbloc.com/'
-                    },
-                    'Depot Heights': {
-                        name: 'Depot Heights',
-                        fullName: 'Fit Bloc Depot Heights',
-                        price: '$28',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.fitbloc.com/'
-                    }
+                    'Science Park': { name: 'Science Park', fullName: 'Fit Bloc Science Park', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' },
+                    'Maxwell': { name: 'Maxwell', fullName: 'Fit Bloc Maxwell', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' },
+                    'Depot Heights': { name: 'Depot Heights', fullName: 'Fit Bloc Depot Heights', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' }
                 }
             },
             bm: {
                 name: 'Boulder Movement',
                 gradeSystem: 'bm',
+                singlePrice: '$35',
+                passPrice: '$220',
+                perSession: '$22',
                 locations: {
-                    'Bugis': {
-                        name: 'Bugis+',
-                        fullName: 'Boulder Movement Bugis',
-                        price: '$35',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.boulderm.com/'
-                    },
-                    'Downtown': {
-                        name: 'Downtown',
-                        fullName: 'Boulder Movement Downtown',
-                        price: '$35',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.boulderm.com/'
-                    },
-                    'Rochor': {
-                        name: 'Rochor',
-                        fullName: 'Boulder Movement Rochor',
-                        price: '$35',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.boulderm.com/'
-                    },
-                    'Tai Seng': {
-                        name: 'Tai Seng',
-                        fullName: 'Boulder Movement Tai Seng',
-                        price: '$35',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.boulderm.com/'
-                    },
-                    'Suntec': {
-                        name: 'Suntec',
-                        fullName: 'Boulder Movement Suntec',
-                        price: '$35',
-                        peakHours: '18-21時',
-                        booking: 'アプリ予約必須',
-                        url: 'https://www.boulderm.com/'
-                    }
+                    'Bugis': { name: 'Bugis+', fullName: 'Boulder Movement Bugis', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
+                    'Downtown': { name: 'Downtown', fullName: 'Boulder Movement Downtown', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
+                    'Rochor': { name: 'Rochor', fullName: 'Boulder Movement Rochor', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
+                    'Tai Seng': { name: 'Tai Seng', fullName: 'Boulder Movement Tai Seng', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
+                    'Suntec': { name: 'Suntec', fullName: 'Boulder Movement Suntec', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' }
                 }
             },
             bff: {
                 name: 'BFF Climb',
                 gradeSystem: 'bff',
+                singlePrice: '$27.25',
+                passPrice: '$207.10',
+                perSession: '$20.7',
                 locations: {
-                    'Bendemeer': {
-                        name: 'Bendemeer',
-                        fullName: 'BFF Climb Bendemeer',
-                        price: '$27.25',
-                        peakHours: '週末',
-                        booking: '予約推奨',
-                        url: 'https://www.bffclimb.com/'
-                    },
-                    'Tampines': {
-                        name: 'Tampines',
-                        fullName: 'BFF Climb Tampines',
-                        price: '$27.25',
-                        peakHours: '週末',
-                        booking: '予約推奨',
-                        url: 'https://www.bffclimb.com/'
-                    },
-                    'Tampines Hub': {
-                        name: 'Tampines Hub',
-                        fullName: 'BFF Climb Tampines Hub',
-                        price: '$27.25',
-                        peakHours: '週末',
-                        booking: '予約推奨',
-                        url: 'https://www.bffclimb.com/'
-                    }
+                    'Bendemeer': { name: 'Bendemeer', fullName: 'BFF Climb Bendemeer', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' },
+                    'Tampines': { name: 'Tampines', fullName: 'BFF Climb Tampines', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' },
+                    'Tampines Hub': { name: 'Tampines Hub', fullName: 'BFF Climb Tampines Hub', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' }
                 }
             },
             'boulder+': {
                 name: 'Boulder+',
                 gradeSystem: 'boulder+',
+                singlePrice: '$32',
+                passPrice: '$220',
+                perSession: '$22',
                 locations: {
-                    'Aperia': {
-                        name: 'Aperia',
-                        fullName: 'Boulder+ Aperia',
-                        price: '$32',
-                        peakHours: '平日夜',
-                        booking: '予約不要',
-                        url: 'https://www.boulderplusclimbing.com/'
-                    },
-                    'Chevrons': {
-                        name: 'Chevrons',
-                        fullName: 'Boulder+ Chevrons',
-                        price: '$32',
-                        peakHours: '平日夜',
-                        booking: '予約不要',
-                        url: 'https://www.boulderplusclimbing.com/'
-                    }
+                    'Aperia': { name: 'Aperia', fullName: 'Boulder+ Aperia', peakHours: '平日夜', booking: '予約不要', url: 'https://www.boulderplusclimbing.com/' },
+                    'Chevrons': { name: 'Chevrons', fullName: 'Boulder+ Chevrons', peakHours: '平日夜', booking: '予約不要', url: 'https://www.boulderplusclimbing.com/' }
+                }
+            },
+            zvertigo: {
+                name: 'Z-Vertigo',
+                gradeSystem: 'zvertigo',
+                singlePrice: '$18',
+                passPrice: '$150',
+                perSession: '$15',
+                locations: {
+                    'Z-Vertigo': { name: 'Z-Vertigo', fullName: 'Z-Vertigo Bouldering Gym', peakHours: '18-21時', booking: '予約不要', url: 'https://www.facebook.com/zvertigobouldering/' }
+                }
+            },
+            oyeyo: {
+                name: 'Oyeyo',
+                gradeSystem: 'french',
+                singlePrice: '$20',
+                passPrice: '$160',
+                perSession: '$16',
+                locations: {
+                    'Oyeyo': { name: 'Oyeyo Boulder Home', fullName: 'Oyeyo Boulder Home', peakHours: '週末', booking: '予約不要', url: 'https://www.facebook.com/oyeyoboulderhome/' }
+                }
+            },
+            boulderworld: {
+                name: 'Boulder World',
+                gradeSystem: 'vgrade',
+                singlePrice: '$25',
+                passPrice: '$200',
+                perSession: '$20',
+                locations: {
+                    'Boulder World': { name: 'Boulder World', fullName: 'Boulder World Singapore', peakHours: '18-21時', booking: '予約推奨', url: 'https://www.boulderworld.com.sg/' }
                 }
             },
             climbcentral: {
                 name: 'Climb Central',
                 gradeSystem: 'japanese',
+                singlePrice: '$27.25',
+                passPrice: '$207.10',
+                perSession: '$20.7',
                 locations: {
-                    'Novena': {
-                        name: 'Novena',
-                        fullName: 'Climb Central Novena',
-                        price: '$22-32',
-                        peakHours: '週末終日',
-                        booking: '初回予約推奨',
-                        url: 'https://www.climbcentral.sg/'
-                    },
-                    'Funan': {
-                        name: 'Funan',
-                        fullName: 'Climb Central Funan',
-                        price: '$22-32',
-                        peakHours: '週末終日',
-                        booking: '初回予約推奨',
-                        url: 'https://www.climbcentral.sg/'
-                    },
-                    'Kallang': {
-                        name: 'Kallang',
-                        fullName: 'Climb Central Kallang',
-                        price: '$22-32',
-                        peakHours: '週末終日',
-                        booking: '初回予約推奨',
-                        url: 'https://www.climbcentral.sg/'
-                    },
-                    'i12 Katong': {
-                        name: 'i12 Katong',
-                        fullName: 'Climb Central i12 Katong',
-                        price: '$22-32',
-                        peakHours: '週末終日',
-                        booking: '初回予約推奨',
-                        url: 'https://www.climbcentral.sg/'
-                    },
-                    'SAFRA': {
-                        name: 'SAFRA',
-                        fullName: 'Climb Central SAFRA',
-                        price: '$22-32',
-                        peakHours: '週末終日',
-                        booking: '初回予約推奨',
-                        url: 'https://www.climbcentral.sg/'
-                    }
+                    'Novena': { name: 'Novena', fullName: 'Climb Central Novena', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
+                    'Funan': { name: 'Funan', fullName: 'Climb Central Funan', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
+                    'Kallang': { name: 'Kallang', fullName: 'Climb Central Kallang', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
+                    'i12 Katong': { name: 'i12 Katong', fullName: 'Climb Central i12 Katong', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
+                    'SAFRA': { name: 'SAFRA', fullName: 'Climb Central SAFRA', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' }
                 }
             },
             boulderplanet: {
                 name: 'Boulder Planet',
                 gradeSystem: 'vgrade',
+                singlePrice: '$33',
+                passPrice: '$220',
+                perSession: '$22',
                 locations: {
-                    'Sembawang': {
-                        name: 'Sembawang',
-                        fullName: 'Boulder Planet Sembawang',
-                        price: '$33',
-                        peakHours: '週末昼',
-                        booking: '予約不要',
-                        url: 'https://www.boulderplanet.sg/'
-                    },
-                    'Tai Seng': {
-                        name: 'Tai Seng',
-                        fullName: 'Boulder Planet Tai Seng',
-                        price: '$33',
-                        peakHours: '週末昼',
-                        booking: '予約不要',
-                        url: 'https://www.boulderplanet.sg/'
-                    }
+                    'Sembawang': { name: 'Sembawang', fullName: 'Boulder Planet Sembawang', peakHours: '週末昼', booking: '予約不要', url: 'https://www.boulderplanet.sg/' },
+                    'Tai Seng': { name: 'Tai Seng', fullName: 'Boulder Planet Tai Seng', peakHours: '週末昼', booking: '予約不要', url: 'https://www.boulderplanet.sg/' }
                 }
             }
         };
 
-        // Vグレード換算テーブル
+        // Vグレード換算テーブル（拡張版）
         const vGradeConversion = {
             bm: {
-                '赤': 4,
-                'ピンク': 5,
-                '紫': 6,
-                '黒': 7,
-                '白': 8
+                '黄': 1, '緑': 2, '青': 3, '赤': 4, 'ピンク': 5, '紫': 6, '黒': 7, '白': 8
             },
             bff: {
-                '10': 4, '11': 4,
-                '12': 5,
-                '13': 6,
-                '14': 7
+                '6': 1, '7': 1, '8': 2, '9': 3, '10': 4, '11': 4, '12': 5, '13': 6, '14': 7
             },
             fitbloc: {
-                '100%': 4, '110%': 4,
-                '120%': 5,
-                '130%': 6,
-                '140%': 7
+                '25%': 1, '50%': 2, '75%': 3, '100%': 4, '110%': 4, '120%': 5, '130%': 6, '140%': 7
             },
             'boulder+': {
-                'White': 4,
-                'Black': 5,
-                'Purple': 6
+                '水色': 1, '青': 2, '紫': 3, '緑': 4, 'White': 4, 'Black': 5, 'Purple': 6
+            },
+            zvertigo: {
+                '1': 0, '2': 0, '3': 1, '4': 2, '5': 3, '6': 4, '7': 4, '8': 5, '9': 5, '10': 6, '11': 6, '12': 7, '13': 7, '14': 8, '15': 8
+            },
+            french: {
+                '4A': 0, '4B': 0, '4C': 1, '5A': 1, '5B': 2, '5C': 2, '6A': 3, '6A+': 3, '6B': 4, '6B+': 4, '6C': 5, '6C+': 5, '7A': 6, '7A+': 6, '7B': 7, '7B+': 7, '7C': 8, '7C+': 8
             },
             japanese: {
-                '1級': 4,
-                '初段': 5,
-                '二段': 6,
-                '三段': 7
+                '7級': 0, '6級': 0, '5級': 1, '4級': 2, '3級': 3, '2級': 4, '1級': 4, '初段': 5, '二段': 6, '三段': 7, '四段': 8
             },
             vgrade: {
-                'V4': 4,
-                'V5': 5,
-                'V6': 6,
-                'V7': 7,
-                'V8': 8,
-                'V8+': 9
+                'V0': 0, 'V1': 1, 'V2': 2, 'V3': 3, 'V4': 4, 'V5': 5, 'V6': 6, 'V7': 7, 'V8': 8, 'V8+': 9
             }
         };
 
@@ -1077,7 +968,9 @@
             bm: ['黄', '緑', '青', '赤', 'ピンク', '紫', '黒', '白'],
             bff: ['6', '7', '8', '9', '10', '11', '12', '13', '14'],
             'boulder+': ['水色', '青', '紫', '緑', 'White', 'Black', 'Purple'],
-            japanese: ['5級', '4級', '3級', '2級', '1級', '初段', '二段', '三段'],
+            zvertigo: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'],
+            french: ['4A', '4B', '4C', '5A', '5B', '5C', '6A', '6A+', '6B', '6B+', '6C', '6C+', '7A', '7A+', '7B', '7B+', '7C', '7C+'],
+            japanese: ['7級', '6級', '5級', '4級', '3級', '2級', '1級', '初段', '二段', '三段', '四段'],
             vgrade: ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V8+']
         };
 
@@ -1190,8 +1083,11 @@
             infoPanel.innerHTML = `
                 <div class="info-row">
                     <span class="info-icon">💰</span>
-                    <span class="info-label">料金:</span>
-                    <span>${location.price}</span>
+                    <span class="info-label">1回:</span>
+                    <span>${brand.singlePrice}</span>
+                </div>
+                <div class="pass-info">
+                    <strong>10回券: ${brand.passPrice}</strong> (1回あたり${brand.perSession})
                 </div>
                 <div class="info-row">
                     <span class="info-icon">⏰</span>
@@ -1211,10 +1107,12 @@
             selectedGradeSystem = brand.gradeSystem;
             const gradeSystemSelect = document.getElementById('gradeSystem');
             const systemNames = {
-                fitbloc: 'Fit Bloc (充電 %)',
-                bm: 'Boulder Movement (色)',
+                fitbloc: 'Fit Bloc (%)',
+                bm: 'BM (色)',
                 bff: 'BFF (数字)',
                 'boulder+': 'Boulder+ (色)',
+                zvertigo: 'Z-Vertigo (1-15)',
+                french: 'フレンチ (6A, 6B...)',
                 japanese: '日本の級',
                 vgrade: 'Vグレード'
             };
@@ -1304,12 +1202,12 @@
             updateDisplay();
         }
 
-        // Vグレード推定エンジン
+        // Vグレード推定エンジン（拡張版）
         function calculateSkillLevel() {
             const completedClimbs = climbs.filter(c => c.status === 'completed');
             
             if (completedClimbs.length === 0) {
-                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: 'まだ完登記録がありません' };
+                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: 'まだ完登記録がありません', remaining: 3 };
             }
 
             let vGrades = [];
@@ -1317,37 +1215,42 @@
                 const system = climb.gradeSystem;
                 const grade = climb.grade;
                 
-                if (vGradeConversion[system] && vGradeConversion[system][grade]) {
+                if (vGradeConversion[system] && vGradeConversion[system][grade] !== undefined) {
                     vGrades.push(vGradeConversion[system][grade]);
                 }
             });
 
             if (vGrades.length === 0) {
-                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: '換算可能な記録がありません' };
+                return { grade: 'V?', progress: 0, nextGrade: 'V1', description: '換算可能な記録がありません', remaining: 3 };
             }
 
-            // 最高グレードを実力とする
             const maxV = Math.max(...vGrades);
             const countAtMax = vGrades.filter(v => v === maxV).length;
-            const totalCompleted = completedClimbs.length;
             
             // 次のグレードへの進捗（同じグレードを3回完登で次へ）
-            const progress = Math.min((countAtMax / 3) * 100, 100);
+            const requiredCount = 3;
+            const progress = Math.min((countAtMax / requiredCount) * 100, 100);
+            const remaining = Math.max(requiredCount - countAtMax, 0);
             
             const descriptions = {
-                4: '基礎ができています',
-                5: '中級者レベルです',
-                6: '上級者レベルです',
-                7: 'エキスパートです',
-                8: 'プロ級です',
-                9: '世界レベルです'
+                0: 'ビギナー',
+                1: '基礎固め中',
+                2: '基礎ができています',
+                3: '中級者入門',
+                4: '中級者レベル',
+                5: '上級者入門',
+                6: '上級者レベル',
+                7: 'エキスパート',
+                8: 'プロ級',
+                9: '世界レベル'
             };
 
             return {
                 grade: `V${maxV}`,
                 progress: progress,
                 nextGrade: `V${maxV + 1}`,
-                description: descriptions[maxV] || '素晴らしい！'
+                description: descriptions[maxV] || '素晴らしい！',
+                remaining: remaining
             };
         }
 
@@ -1387,6 +1290,8 @@
                     bm: 'BM',
                     bff: 'BFF',
                     'boulder+': 'Boulder+',
+                    zvertigo: 'Z-Vertigo',
+                    french: 'フレンチ',
                     japanese: '日本',
                     vgrade: 'V'
                 }[climb.gradeSystem] || climb.gradeSystem;
@@ -1427,9 +1332,9 @@
                     <div class="skill-level-title">現在の推定実力</div>
                     <div class="skill-level-grade">${skillLevel.grade}</div>
                     <div class="skill-level-desc">${skillLevel.description}</div>
-                    ${skillLevel.progress > 0 ? `
+                    ${skillLevel.progress < 100 && skillLevel.remaining > 0 ? `
                         <div class="progress-section">
-                            <div class="progress-label">${skillLevel.nextGrade}まで ${Math.round(skillLevel.progress)}%</div>
+                            <div class="progress-label">あと${skillLevel.remaining}回 ${skillLevel.grade} を完登すれば ${skillLevel.nextGrade} にランクアップ！</div>
                             <div class="progress-bar-outer">
                                 <div class="progress-bar-inner" style="width: ${skillLevel.progress}%"></div>
                             </div>
@@ -1497,17 +1402,14 @@
             const year = currentCalendarDate.getFullYear();
             const month = currentCalendarDate.getMonth();
             
-            // Set header
             const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
             document.getElementById('calendarMonthYear').textContent = `${year}年 ${monthNames[month]}`;
             
-            // Get first day of month and number of days
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const daysInMonth = lastDay.getDate();
             const startingDayOfWeek = firstDay.getDay();
             
-            // Get previous month's last days
             const prevMonthLastDay = new Date(year, month, 0).getDate();
             
             const calendarDays = document.getElementById('calendarDays');
@@ -1534,7 +1436,7 @@
             
             // Next month's days
             const totalCells = calendarDays.children.length;
-            const remainingCells = 42 - totalCells; // 6 rows * 7 days
+            const remainingCells = 42 - totalCells;
             for (let day = 1; day <= remainingCells; day++) {
                 const dayEl = createDayElement(day, true, null);
                 calendarDays.appendChild(dayEl);
@@ -1587,11 +1489,9 @@
             selectedCalendarDate = dateKey;
             const modal = document.getElementById('exerciseModal');
             
-            // Set title with date
             const [year, month, day] = dateKey.split('-');
             document.getElementById('modalTitle').textContent = `${month}月${day}日の運動記録`;
             
-            // Load existing data
             const data = exerciseCalendar[dateKey] || { bouldering: false, strength: false };
             document.getElementById('checkBouldering').checked = data.bouldering;
             document.getElementById('checkStrength').checked = data.strength;
@@ -1616,7 +1516,6 @@
                     strength: strength
                 };
             } else {
-                // Remove entry if both unchecked
                 delete exerciseCalendar[selectedCalendarDate];
             }
             
@@ -1625,7 +1524,6 @@
             renderCalendar();
         }
 
-        // Close modal when clicking outside
         document.addEventListener('click', function(event) {
             const modal = document.getElementById('exerciseModal');
             if (event.target === modal) {
