@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ボルダリング SG">
     <meta name="theme-color" content="#667eea">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🧗</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='bg' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%23667eea'/><stop offset='100%' style='stop-color:%23764ba2'/></linearGradient></defs><rect width='512' height='512' fill='url(%23bg)' rx='110'/><circle cx='130' cy='150' r='45' fill='%234caf50'/><circle cx='380' cy='180' r='50' fill='%23ff9800'/><circle cx='250' cy='280' r='55' fill='%232196f3'/><circle cx='150' cy='380' r='48' fill='%23e91e63'/><circle cx='360' cy='400' r='52' fill='%23ffeb3b'/><path d='M 256 450 Q 200 380 180 300 T 200 200 Q 220 150 280 180 Q 320 200 300 280 Q 280 340 256 450' fill='white' opacity='0.9'/></svg>">
     <title>シンガポール・ボルダリング・コンプリート</title>
     <style>
         * {
@@ -219,6 +219,36 @@
             justify-content: center;
         }
 
+        .recommendations {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .rec-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .rec-item {
+            font-size: 0.85em;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rec-link {
+            background: #4285f4;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
         .grade-buttons {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
@@ -268,7 +298,6 @@
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
         }
 
-        /* Calendar Styles */
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -385,7 +414,6 @@
             background: #2196f3;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -826,7 +854,11 @@
     </div>
 
     <script>
-        // ジムデータベース（最新版・回数券情報付き）
+console.log('App starting...');
+</script>
+</body>
+</html>    <script>
+        // ジムデータベース - シンプル版（営業時間なし）
         const gymDatabase = {
             fitbloc: {
                 name: 'Fit Bloc',
@@ -835,9 +867,21 @@
                 passPrice: '$190',
                 perSession: '$19',
                 locations: {
-                    'Science Park': { name: 'Science Park', fullName: 'Fit Bloc Science Park', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' },
-                    'Maxwell': { name: 'Maxwell', fullName: 'Fit Bloc Maxwell', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' },
-                    'Depot Heights': { name: 'Depot Heights', fullName: 'Fit Bloc Depot Heights', peakHours: '18-21時', booking: 'アプリ予約必須', url: 'https://www.fitbloc.com/' }
+                    'Science Park': { 
+                        name: 'Science Park', 
+                        fullName: 'Fit Bloc Science Park', 
+                        peakHours: '18-21時', 
+                        booking: 'アプリ予約必須', 
+                        url: 'https://www.fitbloc.com/',
+                        cafes: [
+                            { name: 'The Coffee Academics', distance: '徒歩3分' },
+                            { name: 'Starbucks Science Park', distance: '徒歩5分' }
+                        ],
+                        restaurants: [
+                            { name: 'The Soup Spoon', distance: '徒歩4分' },
+                            { name: 'Rochester Commons', distance: '徒歩6分' }
+                        ]
+                    }
                 }
             },
             bm: {
@@ -847,119 +891,35 @@
                 passPrice: '$220',
                 perSession: '$22',
                 locations: {
-                    'Bugis': { name: 'Bugis+', fullName: 'Boulder Movement Bugis', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
-                    'Downtown': { name: 'Downtown', fullName: 'Boulder Movement Downtown', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
-                    'Rochor': { name: 'Rochor', fullName: 'Boulder Movement Rochor', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
-                    'Tai Seng': { name: 'Tai Seng', fullName: 'Boulder Movement Tai Seng', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' },
-                    'Suntec': { name: 'Suntec', fullName: 'Boulder Movement Suntec', peakHours: '18-21時', booking: '予約必須', url: 'https://www.boulderm.com/' }
-                }
-            },
-            bff: {
-                name: 'BFF Climb',
-                gradeSystem: 'bff',
-                singlePrice: '$27.25',
-                passPrice: '$207.10',
-                perSession: '$20.7',
-                locations: {
-                    'Bendemeer': { name: 'Bendemeer', fullName: 'BFF Climb Bendemeer', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' },
-                    'Tampines': { name: 'Tampines', fullName: 'BFF Climb Tampines', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' },
-                    'Tampines Hub': { name: 'Tampines Hub', fullName: 'BFF Climb Tampines Hub', peakHours: '週末', booking: '予約推奨', url: 'https://www.bffclimb.com/' }
-                }
-            },
-            'boulder+': {
-                name: 'Boulder+',
-                gradeSystem: 'boulder+',
-                singlePrice: '$32',
-                passPrice: '$220',
-                perSession: '$22',
-                locations: {
-                    'Aperia': { name: 'Aperia', fullName: 'Boulder+ Aperia', peakHours: '平日夜', booking: '予約不要', url: 'https://www.boulderplusclimbing.com/' },
-                    'Chevrons': { name: 'Chevrons', fullName: 'Boulder+ Chevrons', peakHours: '平日夜', booking: '予約不要', url: 'https://www.boulderplusclimbing.com/' }
-                }
-            },
-            zvertigo: {
-                name: 'Z-Vertigo',
-                gradeSystem: 'zvertigo',
-                singlePrice: '$18',
-                passPrice: '$150',
-                perSession: '$15',
-                locations: {
-                    'Z-Vertigo': { name: 'Z-Vertigo', fullName: 'Z-Vertigo Bouldering Gym', peakHours: '18-21時', booking: '予約不要', url: 'https://www.facebook.com/zvertigobouldering/' }
-                }
-            },
-            oyeyo: {
-                name: 'Oyeyo',
-                gradeSystem: 'french',
-                singlePrice: '$20',
-                passPrice: '$160',
-                perSession: '$16',
-                locations: {
-                    'Oyeyo': { name: 'Oyeyo Boulder Home', fullName: 'Oyeyo Boulder Home', peakHours: '週末', booking: '予約不要', url: 'https://www.facebook.com/oyeyoboulderhome/' }
-                }
-            },
-            boulderworld: {
-                name: 'Boulder World',
-                gradeSystem: 'vgrade',
-                singlePrice: '$25',
-                passPrice: '$200',
-                perSession: '$20',
-                locations: {
-                    'Boulder World': { name: 'Boulder World', fullName: 'Boulder World Singapore', peakHours: '18-21時', booking: '予約推奨', url: 'https://www.boulderworld.com.sg/' }
-                }
-            },
-            climbcentral: {
-                name: 'Climb Central',
-                gradeSystem: 'japanese',
-                singlePrice: '$27.25',
-                passPrice: '$207.10',
-                perSession: '$20.7',
-                locations: {
-                    'Novena': { name: 'Novena', fullName: 'Climb Central Novena', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
-                    'Funan': { name: 'Funan', fullName: 'Climb Central Funan', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
-                    'Kallang': { name: 'Kallang', fullName: 'Climb Central Kallang', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
-                    'i12 Katong': { name: 'i12 Katong', fullName: 'Climb Central i12 Katong', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' },
-                    'SAFRA': { name: 'SAFRA', fullName: 'Climb Central SAFRA', peakHours: '週末終日', booking: '初回予約推奨', url: 'https://www.climbcentral.sg/' }
-                }
-            },
-            boulderplanet: {
-                name: 'Boulder Planet',
-                gradeSystem: 'vgrade',
-                singlePrice: '$33',
-                passPrice: '$220',
-                perSession: '$22',
-                locations: {
-                    'Sembawang': { name: 'Sembawang', fullName: 'Boulder Planet Sembawang', peakHours: '週末昼', booking: '予約不要', url: 'https://www.boulderplanet.sg/' },
-                    'Tai Seng': { name: 'Tai Seng', fullName: 'Boulder Planet Tai Seng', peakHours: '週末昼', booking: '予約不要', url: 'https://www.boulderplanet.sg/' }
+                    'Bugis': { 
+                        name: 'Bugis+', 
+                        fullName: 'Boulder Movement Bugis', 
+                        peakHours: '18-21時', 
+                        booking: '予約必須', 
+                        url: 'https://www.boulderm.com/',
+                        cafes: [
+                            { name: 'Starbucks Bugis Junction', distance: '徒歩2分' },
+                            { name: 'The Coffee Bean', distance: '徒歩3分' }
+                        ],
+                        restaurants: [
+                            { name: 'Albert Centre Food Centre', distance: '徒歩5分' },
+                            { name: 'Kam Boat Mee Pok', distance: '徒歩6分' }
+                        ]
+                    }
                 }
             }
         };
 
-        // Vグレード換算テーブル（拡張版）
+        // Vグレード換算テーブル
         const vGradeConversion = {
-            bm: {
-                '黄': 1, '緑': 2, '青': 3, '赤': 4, 'ピンク': 5, '紫': 6, '黒': 7, '白': 8
-            },
-            bff: {
-                '6': 1, '7': 1, '8': 2, '9': 3, '10': 4, '11': 4, '12': 5, '13': 6, '14': 7
-            },
-            fitbloc: {
-                '25%': 1, '50%': 2, '75%': 3, '100%': 4, '110%': 4, '120%': 5, '130%': 6, '140%': 7
-            },
-            'boulder+': {
-                '水色': 1, '青': 2, '紫': 3, '緑': 4, 'White': 4, 'Black': 5, 'Purple': 6
-            },
-            zvertigo: {
-                '1': 0, '2': 0, '3': 1, '4': 2, '5': 3, '6': 4, '7': 4, '8': 5, '9': 5, '10': 6, '11': 6, '12': 7, '13': 7, '14': 8, '15': 8
-            },
-            french: {
-                '4A': 0, '4B': 0, '4C': 1, '5A': 1, '5B': 2, '5C': 2, '6A': 3, '6A+': 3, '6B': 4, '6B+': 4, '6C': 5, '6C+': 5, '7A': 6, '7A+': 6, '7B': 7, '7B+': 7, '7C': 8, '7C+': 8
-            },
-            japanese: {
-                '7級': 0, '6級': 0, '5級': 1, '4級': 2, '3級': 3, '2級': 4, '1級': 4, '初段': 5, '二段': 6, '三段': 7, '四段': 8
-            },
-            vgrade: {
-                'V0': 0, 'V1': 1, 'V2': 2, 'V3': 3, 'V4': 4, 'V5': 5, 'V6': 6, 'V7': 7, 'V8': 8, 'V8+': 9
-            }
+            bm: { '黄': 1, '緑': 2, '青': 3, '赤': 4, 'ピンク': 5, '紫': 6, '黒': 7, '白': 8 },
+            bff: { '6': 1, '7': 1, '8': 2, '9': 3, '10': 4, '11': 4, '12': 5, '13': 6, '14': 7 },
+            fitbloc: { '25%': 1, '50%': 2, '75%': 3, '100%': 4, '110%': 4, '120%': 5, '130%': 6, '140%': 7 },
+            'boulder+': { '水色': 1, '青': 2, '紫': 3, '緑': 4, 'White': 4, 'Black': 5, 'Purple': 6 },
+            zvertigo: { '1': 0, '2': 0, '3': 1, '4': 2, '5': 3, '6': 4, '7': 4, '8': 5, '9': 5, '10': 6, '11': 6, '12': 7, '13': 7, '14': 8, '15': 8 },
+            french: { '4A': 0, '4B': 0, '4C': 1, '5A': 1, '5B': 2, '5C': 2, '6A': 3, '6A+': 3, '6B': 4, '6B+': 4, '6C': 5, '6C+': 5, '7A': 6, '7A+': 6, '7B': 7, '7B+': 7, '7C': 8, '7C+': 8 },
+            japanese: { '7級': 0, '6級': 0, '5級': 1, '4級': 2, '3級': 3, '2級': 4, '1級': 4, '初段': 5, '二段': 6, '三段': 7, '四段': 8 },
+            vgrade: { 'V0': 0, 'V1': 1, 'V2': 2, 'V3': 3, 'V4': 4, 'V5': 5, 'V6': 6, 'V7': 7, 'V8': 8, 'V8+': 9 }
         };
 
         // グレードシステム定義
@@ -1014,12 +974,8 @@
 
         // タブ切り替え
         function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
             event.target.classList.add('active');
             document.getElementById(tabName).classList.add('active');
@@ -1040,6 +996,7 @@
 
         // ブランド選択時
         document.getElementById('gymBrand').addEventListener('change', function() {
+            console.log('Brand selected:', this.value);
             selectedBrand = this.value;
             const locationGroup = document.getElementById('locationGroup');
             const locationSelect = document.getElementById('gymLocation');
@@ -1067,6 +1024,7 @@
 
         // 場所選択時
         document.getElementById('gymLocation').addEventListener('change', function() {
+            console.log('Location selected:', this.value);
             selectedLocation = this.value;
             const infoPanel = document.getElementById('gymInfoPanel');
             
@@ -1079,6 +1037,42 @@
             const brand = gymDatabase[selectedBrand];
             const location = brand.locations[selectedLocation];
             const mapsUrl = getGoogleMapsUrl(location.fullName);
+            
+            let cafesHTML = '';
+            if (location.cafes && location.cafes.length > 0) {
+                cafesHTML = `
+                    <div class="recommendations">
+                        <div class="rec-title">☕ おすすめカフェ</div>
+                        ${location.cafes.map(cafe => {
+                            const cafeMapUrl = getGoogleMapsUrl(cafe.name + ' Singapore');
+                            return `
+                                <div class="rec-item">
+                                    <span>• ${cafe.name} <span style="color: #666;">${cafe.distance}</span></span>
+                                    <a href="${cafeMapUrl}" target="_blank" class="rec-link">📍</a>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+            
+            let restaurantsHTML = '';
+            if (location.restaurants && location.restaurants.length > 0) {
+                restaurantsHTML = `
+                    <div class="recommendations" style="margin-top: 10px;">
+                        <div class="rec-title">🍽️ おすすめレストラン</div>
+                        ${location.restaurants.map(rest => {
+                            const restMapUrl = getGoogleMapsUrl(rest.name + ' Singapore');
+                            return `
+                                <div class="rec-item">
+                                    <span>• ${rest.name} <span style="color: #666;">${rest.distance}</span></span>
+                                    <a href="${restMapUrl}" target="_blank" class="rec-link">📍</a>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
             
             infoPanel.innerHTML = `
                 <div class="info-row">
@@ -1099,6 +1093,8 @@
                     <span class="info-label">予約:</span>
                     <span>${location.booking}</span>
                 </div>
+                ${cafesHTML}
+                ${restaurantsHTML}
                 <a href="${mapsUrl}" target="_blank" class="map-btn">📍 Google Mapsで開く</a>
                 ${location.url ? `<a href="${location.url}" target="_blank" class="gym-link">🌐 公式サイト</a>` : ''}
             `;
@@ -1150,9 +1146,7 @@
 
             document.querySelectorAll('.grade-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('.grade-btn').forEach(b => {
-                        b.classList.remove('selected');
-                    });
+                    document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected'));
                     this.classList.add('selected');
                     selectedGrade = this.getAttribute('data-grade');
                 });
@@ -1182,7 +1176,6 @@
 
             climbs.unshift(climb);
             
-            // カレンダーに自動記録
             const today = new Date();
             const dateKey = formatDateKey(today);
             if (!exerciseCalendar[dateKey]) {
@@ -1192,9 +1185,7 @@
             
             saveToStorage();
             
-            document.querySelectorAll('.grade-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
+            document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('selected'));
             selectedGrade = null;
             document.getElementById('notes').value = '';
             
@@ -1202,7 +1193,7 @@
             updateDisplay();
         }
 
-        // Vグレード推定エンジン（拡張版）
+        // Vグレード推定エンジン
         function calculateSkillLevel() {
             const completedClimbs = climbs.filter(c => c.status === 'completed');
             
@@ -1227,7 +1218,6 @@
             const maxV = Math.max(...vGrades);
             const countAtMax = vGrades.filter(v => v === maxV).length;
             
-            // 次のグレードへの進捗（同じグレードを3回完登で次へ）
             const requiredCount = 3;
             const progress = Math.min((countAtMax / requiredCount) * 100, 100);
             const remaining = Math.max(requiredCount - countAtMax, 0);
@@ -1323,7 +1313,6 @@
             document.getElementById('completedClimbs').textContent = completed;
             document.getElementById('completionRate').textContent = rate + '%';
 
-            // スキルレベル表示
             const skillLevel = calculateSkillLevel();
             const skillCard = document.getElementById('skillLevelCard');
             
@@ -1343,7 +1332,6 @@
                 </div>
             `;
 
-            // グレード分布
             const allGrades = {};
             climbs.forEach(climb => {
                 const key = `${climb.grade} (${climb.gradeSystem})`;
@@ -1384,8 +1372,7 @@
             displayStats();
         }
 
-        // === Calendar Functions ===
-        
+        // カレンダー機能
         function formatDateKey(date) {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -1418,14 +1405,12 @@
             const today = new Date();
             const todayKey = formatDateKey(today);
             
-            // Previous month's days
             for (let i = startingDayOfWeek - 1; i >= 0; i--) {
                 const day = prevMonthLastDay - i;
                 const dayEl = createDayElement(day, true, null);
                 calendarDays.appendChild(dayEl);
             }
             
-            // Current month's days
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
                 const dateKey = formatDateKey(date);
@@ -1434,7 +1419,6 @@
                 calendarDays.appendChild(dayEl);
             }
             
-            // Next month's days
             const totalCells = calendarDays.children.length;
             const remainingCells = 42 - totalCells;
             for (let day = 1; day <= remainingCells; day++) {
@@ -1533,6 +1517,7 @@
 
         // 初期化
         loadClimbs();
+        console.log('App initialized!');
     </script>
 </body>
 </html>
